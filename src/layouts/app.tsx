@@ -2,8 +2,40 @@ import AppHeader from "../components/header.tsx";
 import {Outlet} from "react-router-dom";
 import SortFilter from "@/components/sort-filter.tsx";
 import GenFilters from "@/components/gen-filters.tsx";
+import {useCallback, useContext, useEffect, useRef, useState} from "react";
+import {GlobalContext} from "@/contexts/globalContext.tsx";
+import {LoaderCircle} from "lucide-react";
 
 const AppLayout = () => {
+    const [loading, setLoading] = useState(false);
+    const {doctors, setDoctors} = useContext(GlobalContext);
+    const isMounted = useRef(false);
+
+    const middleware = useCallback(() => {
+        if (doctors.length === 0) {
+            setLoading(true);
+            fetch('https://srijandubey.github.io/campus-api-mock/SRM-C1-25.json')
+                .then((res) => res.json())
+                .then((data) => {
+                    setDoctors(data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                })
+                .finally(() => {
+                    setLoading(false);
+                })
+        }
+    }, [doctors.length, setDoctors])
+
+    useEffect(() => {
+        if (!isMounted.current) {
+            isMounted.current = true;
+            middleware();
+        }
+    }, [middleware]);
     return (
         <div>
             <AppHeader/>
@@ -16,7 +48,10 @@ const AppLayout = () => {
                         </div>
                     </div>
                     <div className="col-span-7">
-                        <Outlet/>
+                        {loading && <div className={'flex items-center justify-center h-[90dvh]'}>
+                                <LoaderCircle className={'animate-spin size-7'}/>
+                            </div>
+                            || <Outlet/>}
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ import {cn} from "@/lib/utils.ts";
 const SortFilter = () => {
     const [chevronOpen, setChevronOpen] = useState(true);
     return (
-        <Card className={'gap-1'}>
+        <Card data-testid={'filter-header-sort'} className={'gap-1'}>
             <CardHeader>
                 <div className={'flex items-center justify-between text-gray-600/90'}>
                     <h1 className={''}>Sort by</h1>

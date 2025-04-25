@@ -4,7 +4,7 @@ import {FILTERS} from "@/constants/filters.ts";
 
 const SpecialitiesFilter = () => {
     return (
-        <div>
+        <div data-testid={'filter-header-speciality'}>
             <h1 className={'text-lg font-semibold text-gray-600/90'}>
                 Specialities
             </h1>

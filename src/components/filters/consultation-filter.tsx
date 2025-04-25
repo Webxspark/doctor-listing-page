@@ -4,7 +4,7 @@ import {FILTERS} from "@/constants/filters.ts";
 
 const ConsultationFilter = () => {
     return (
-        <div>
+        <div data-testid={'filter-header-moc'}>
             <h1 className={'text-lg font-semibold text-gray-600/90'}>
                 Mode of consultation
             </h1>
