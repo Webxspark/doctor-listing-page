@@ -23,4 +23,7 @@ export interface IGlobalContext {
 
     clearFilters: () => void;
 
+    sortOption: string | null;
+    setSortOption: React.Dispatch<React.SetStateAction<string | null>>;
+
 }

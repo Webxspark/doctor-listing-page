@@ -1,13 +1,16 @@
 import {Card, CardContent, CardHeader} from "@/components/ui/card.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {ChevronUp} from "lucide-react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {cn} from "@/lib/utils.ts";
+import {GlobalContext} from "@/contexts/globalContext.tsx";
 
 const SortFilter = () => {
     const [chevronOpen, setChevronOpen] = useState(true);
+    const { sortOption, setSortOption } = useContext(GlobalContext);
+
     return (
         <Card data-testid={'filter-header-sort'} className={'gap-1'}>
             <CardHeader>
@@ -30,12 +33,13 @@ const SortFilter = () => {
             </CardHeader>
             {
                 chevronOpen && (<CardContent className={'text-gray-800'}>
-                    <RadioGroup>
+                    <RadioGroup onValueChange={(value) => setSortOption(value)}>
                         <div className={'flex items-center gap-2'}>
                             <RadioGroupItem
                                 data-testid={'sort-fees'}
                                 value={'sort-fees'}
                                 id={'sort-fees'}
+                                checked={sortOption === 'sort-fees'}
                             />
                             <Label className={'text-base'} htmlFor={'sort-fees'}>
                                 Price: Low-High
@@ -46,6 +50,7 @@ const SortFilter = () => {
                                 data-testid={'sort-experience'}
                                 value={'sort-experience'}
                                 id={'sort-experience'}
+                                checked={sortOption === 'sort-experience'}
                             />
                             <Label className={'text-base'} htmlFor={'sort-experience'}>
                                 Experience: Most Experience first

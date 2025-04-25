@@ -1,11 +1,11 @@
 import {createBrowserRouter} from "react-router-dom";
 import App from "@/pages/App.tsx";
-import AppLayout from "@/layouts/app.tsx";
+import Index from "@/index.tsx";
 
 export const AppRoutes = createBrowserRouter([
     {
         path: '/',
-        element: <AppLayout />,
+        element: <Index />,
         children: [
             {
                 path: "/",

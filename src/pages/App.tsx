@@ -6,17 +6,17 @@ import {Factory, MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 
 function App() {
-    const {doctors} = useContext(GlobalContext);
+    const {filteredDoctors, activeFilters} = useContext(GlobalContext);
     return (
         <div className={'max-h-[90dvh] overflow-y-auto'}>
-            {(doctors && doctors.length > 0) && <>
-                {doctors.map((doctor, index) => (
+            {(filteredDoctors && filteredDoctors.length > 0) && <>
+                {filteredDoctors.map((doctor, index) => (
                     <Card key={index} data-testid={'doctor-card'} className={'mb-4'}>
                         <CardContent>
                             <div className={'flex items-start gap-2'}>
                                 <img
                                     className={'w-20 h-20 rounded-full'}
-                                    src={doctor.photo}
+                                    src={doctor.photo != "null" ? doctor.photo : "https://cdn.webxspark.com/assets/images/user-m.webp"}
                                     alt={doctor.name}
                                 />
                                 <div>
@@ -52,7 +52,19 @@ function App() {
                         </CardContent>
                     </Card>
                 ))}
-            </>}
+            </>
+                || <div className={'flex items-center justify-center h-[40dvh]'}>
+                    <h1 className={'text-2xl font-semibold text-gray-500'}>
+                        No doctors found for the filter {
+                            activeFilters.specialities.length > 0 && (
+                                <span className={'text-blue-500'}>
+                                    {activeFilters.specialities.map((s) => s).join(', ')}
+                                </span>
+                            )
+                        }.
+                    </h1>
+                </div>
+            }
         </div>
     )
 }
