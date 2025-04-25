@@ -1,12 +1,12 @@
-import React from 'react';
 import AppHeader from "../components/header.tsx";
+import {Outlet} from "react-router-dom";
 
-const AppLayout = ({children}: { children: React.ReactNode }) => {
+const AppLayout = () => {
     return (
         <div>
             <AppHeader/>
             <div className={'max-w-5xl w-full mx-auto my-5'}>
-                {children}
+                <Outlet />
             </div>
         </div>
     );
